@@ -1,63 +1,57 @@
 # SSMS
 Data Analysis Course Project
 
-# <center>实验:开发一个单机版销售管理系统
+# <center>Develop a stand-alone sales management system
 
-<center>姓名：张笑一
+<center>Name：Xiaoyi Zhang
 
-
-<center>学号：JL21010001
 
 
 </center>
 
-### 问题描述
+### problem description
 
-* 背景描述。
-  某公司有N名业务员（N<100，人员数量是变动的），销售M种产品（M<1000，数量变动），公司需要跟踪记录每名销售员的销售业绩和每种产品的销售情况。并能够通过销售分析菜单完成下列任务：搜索某个业务员的销售记录，搜索某种产品的销售记录，按销售额对销售员的业绩进行排名，按销售额对产品的业绩进行排名，等等。基于这些需求，需要一个单机版销售管理系统，由一个管理员运行和管理，对业务员、产品和销售记录等信息进行管理维护。
+* Background description.
+  A company has N salesmen ( N < 100, the number of personnel is changing ) and sells M products ( M < 1000, the number of changes ). The company needs to track and record the sales performance of each salesman and the sales of each product. And through the sales analysis menu to complete the following tasks : search for sales records of a salesman, search for sales records of a product, according to sales sales of salesman 's performance ranking, according to sales of product performance ranking, and so on. Based on these requirements, a stand-alone sales management system is needed, which is run and managed by an administrator to manage and maintain information such as sales staff, products and sales records.
 
-* 数据描述。
-  系统需要处理的主要信息有：业务员（工号（唯一），姓名（不唯一），部门，级别，状态）， 产品（产品编码（唯一），产品名称，销售指导价，库存量），销售记录（订单号（唯一），销售日期，销售员工号，产品编码，销售价格，销售数量）。系统至少需要跟踪这些信息，为了程序处理的需要，可以增加额外的数据。
+* Data description.
+  The main information that the system needs to deal with are : salesman ( number ( only ), name ( not only ), department, level, status ), product ( product code ( only ), product name, sales guide price, inventory ), sales record ( order number ( only ), sales date, sales staff number, product code, sales price, sales volume ). The system at least needs to track this information, and additional data can be added for program processing.
 
-* 功能描述。
-  系统至少需要具有下列功能：
-  （1） 批量从文件（csv或xlsx格式）导入业务员、产品、销售记录数据；
-  （2） 手工添加产品信息、修改已有产品的信息、更新产品库存、删除产品条目（或库存清零）；
-  （3） 手工添加业务员信息、修改业务员信息、删除业务员信息（或离职）；
-  （4） 手工添加销售记录、修改销售记录、删除销售记录；
-  （5） 根据工号或姓名查询展示业务员信息；分页列表显示所有业务员信息；
-  （6） 根据产品编码或产品名称（模糊）查询展示产品信息；分页列表显示所有产品信息；
-  （7） 根据日期、业务员或产品组合查询销售记录及汇总数据；
-  （8） 按照销售额对销售员的业绩进行排名（从高到低），按销售额对产品进行排名（从高到低）；
-  （9） 从菜单选择退出系统时，自动保存所有的数据到备份文件（格式自选）；
-  （10） 系统恢复功能，从备份文件中导入所有数据。
+* Function description.
+  The system at least needs to have the following functions : 
+( 1 ) Batch from the file ( csv or xlsx format ) import salesperson, product, sales record data ; 
+( 2 ) manually add product information, modify the existing product information, update product inventory, delete product entries ( or inventory clearance ) ; 
+( 3 ) manually add salesperson information, modify salesperson information, delete salesperson information ( or leave ) ; 
+( 4 ) manually add sales records, modify sales records, delete sales records ; 
+( 5 ) According to the work number or name query display salesman information ; pagination list shows all salesman information ; 
+( 6 ) According to the product code or product name ( fuzzy ) query display product information ; pagination list shows all product information ; 
+( 7 ) according to the date, salesperson or product portfolio query sales records and summary data ; 
+( 8 ) According to the sales of sales staff performance ranking ( from high to low ), according to the sales of products ranking ( from high to low ) ; 
+( 9 ) automatically save all the data to the backup file ( format optional ) when you choose to exit the system from the menu ; 
+( 10 ) System recovery function, import all data from the backup file.
 
-* 业务逻辑约束。
-  在业务处理中，需要满足以下逻辑：
-  （1）销售价格默认为指导价格，不能低于指导价格；
-  （2）添加销售记录时，对应的业务员和产品必须存在，库存不为零，且业务员状态为在职；
-  （3）删除产品时，若该产品的销售记录不为空，则只能将其库存清零，而不能删除该商品的基本信息；
-  （4）删除业务员时，若该业务员的销售记录不为空，则只能将其状态设置为“离职”，而不能删除该业务员的基本信息；
-  （5）增加一条销售记录时，销售量不能超过当前库存量，增加销售记录后，需要将库存量相应减少；
-  （6）产品价格、销售量等数据不能为负数。
-  若不满足以上逻辑，系统需要提示错误，并将错误信息写入日志（error.log)，格式和内容自定，但不能中断程序的执行。不满足的逻辑的修改和删除请求将被拒绝。
-
-
-### 需求分析
-
-（1）能完成产品基本信息的维护：即各实体的基本信息的增、删、改。
-
-（2）能完成产品基本信息的查询。
-
-（3）能完成业务员基本信息的维护：即各实体的基本信息的增、删、改。
-
-（4）能完成业务员基本信息的查询。
-
-（5）能完成销售记录基本信息的维护：即各实体的基本信息的增、删、改。
-
-（6）能完成销售记录基本信息的查询。
-
-（7）进行销售排名
+* Business logic constraints. 
+In business processing, the following logic needs to be satisfied : 
+( 1 ) The sales price defaults to the guiding price and cannot be lower than the guiding price ; 
+( 2 ) When adding sales records, the corresponding salesmen and products must exist, the inventory is not zero, and the salesman status is on-the-job ; 
+( 3 ) When deleting a product, if the sales record of the product is not empty, it can only clear its inventory, but not delete the basic information of the product ; 
+( 4 ) When deleting a salesperson, if the sales record of the salesperson is not empty, his status can only be set to ' leave ', and the basic information of the salesperson cannot be deleted ; 
+( 5 ) When a sales record is added, the sales volume cannot exceed the current inventory. After adding the sales record, the inventory needs to be reduced accordingly ; 
+( 6 ) Product prices, sales and other data can not be negative. 
+If the above logic is not satisfied, the system needs to prompt for errors and write error information to the log ( error.log ), format and content customized, but can not interrupt the execution of the program. Unsatisfied logical modification and deletion requests will be rejected. 
+ 
+ 
+### demand analysis 
+ 
+( 1 ) to complete the maintenance of product basic information : that is, the entity 's basic information to add, delete, change. 
+ 
+( 2 ) to complete the product basic information query. 
+ 
+( 3 ) can complete the maintenance of the basic information of the salesman : that is, the addition, deletion and modification of the basic information of each entity. 
+ 
+( 4 ) Can complete the salesman basic information query. 
+ 
+( 5 ) Able to complete the maintenance of basic information on sales records : that is, the entity 's basic letter
 
 ~~~ mermaid
 graph TB;
@@ -197,9 +191,9 @@ G("销售排名")-->g3("0 返回主菜单")
 
 
 
-###  详细设计
+###  detail design
 
-**data为文件:products.csv;records.csv;salemen.csv,根据提供的数据x，利用文件的索引index进行搜寻。**
+**data is the file : products.csv ; records.csv ; salemen.csv, based on the data provided x, using the file index index to search.**
 
 ~~~ python
 def seek(data, x, index):
@@ -209,7 +203,7 @@ def seek(data, x, index):
     return []
 ~~~
 
-**根据名称模糊查询**
+**Fuzzy query by name**
 
 ~~~ python
 def vague_seek(data, x, index):
@@ -223,7 +217,7 @@ def vague_seek(data, x, index):
     return np.delete(result, 0, axis=0)
 ~~~
 
-**组合查询的函数**
+**Combination query function**
 
 ~~~ python
 def com_seek(record_data, time, sale, prod):
@@ -234,7 +228,7 @@ def com_seek(record_data, time, sale, prod):
     return np.delete(result, 0, axis=0)
 ~~~
 
-**索引**
+**index**
 
 ~~~ python
 def index(data, x):
@@ -244,7 +238,7 @@ def index(data, x):
     return -1
 ~~~
 
-**展示产品、业务员、销售记录有关的信息**
+**Display information about products, salespeople, sales records**
 
 ~~~ python
 def show_product(x):
@@ -267,19 +261,19 @@ def show_record(x):
             print("订单号：%s\t销售日期：%s\t销售员工号:%s\t产品编码：%s\t销售价格：%s\t销售数量：%s\t\n" % (xx[0], xx[1], xx[2], xx[3], xx[4], xx[5]), end='')
 ~~~
 
-主要类的结构设计
-
-产品的属性：产品编码、产品名称、销售指导价、库存量
-
-业务员的属性：工号、姓名、部门、级别、状态
-
-销售记录的属性：订单号、销售日期、销售员工号、产品编码、销售价格、销售数量
-
-**manage实现菜单的功能**
-
-一.产品信息查询
-
-1.输出全部产品信息
+Structural design of main classes 
+ 
+Product attributes : product code, product name, sales price, inventory 
+ 
+Salesperson ' s attributes : work number, name, department, level, status 
+ 
+Sales record attributes : order number, sales date, sales staff number, product code, sales price, sales volume 
+ 
+** Manage menu functionality ** 
+ 
+One. Product Information Inquiry 
+ 
+1. Output all product information
 
 ```python
 if x == 1:
@@ -287,7 +281,7 @@ if x == 1:
         show_product(i)
 ```
 
-2.根据产品编码查询
+2.Query by product code
 
 ```python
 elif x == 2:
@@ -299,7 +293,7 @@ elif x == 2:
         show_product(i)
 ```
 
-3.根据名称查询
+3.Query by name
 
 ```python
                 elif x == 3:
@@ -311,9 +305,9 @@ elif x == 2:
                         print("没有这个产品！")
 ```
 
-二.产品信息维护
+TWO.Product Information Maintenance
 
-1.产品入仓库
+1.Products into the warehouse
 
 ```python
 if x == 1:
@@ -330,7 +324,7 @@ if x == 1:
         print("入库成功！")
 ```
 
-2.产品售出
+2.Sold products
 
 ```python
 elif x == 2:
@@ -349,7 +343,7 @@ elif x == 2:
         print("出库成功！")
 ```
 
-3.批量导入产品信息
+3.Batch import product information
 
 ```python
 elif x == 3:
@@ -363,7 +357,7 @@ elif x == 3:
             continue
 ```
 
-4.手动添加产品信息
+4.Manually add product information
 
 ```python
 elif x == 4:
@@ -379,7 +373,7 @@ elif x == 4:
         print("添加成功！")
 ```
 
-5.删除产品信息
+5.Delete product information
 
 ```python
 elif x == 5:
@@ -395,7 +389,7 @@ elif x == 5:
         print("删除成功！")
 ```
 
-6.修改产品信息
+6.Modify product information
 
 ~~~ python
                 elif x == 6:
@@ -409,9 +403,9 @@ elif x == 5:
                         i[3] = int(input("请输入修改后的产品的库存数量："))
 ~~~
 
-三、业务员信息查询
+THREE、Salesman Information Inquiry
 
-1.全部业务员信息
+1.All salesperson information
 
 ~~~ python
                 if x == 1:
@@ -419,7 +413,7 @@ elif x == 5:
                         show_saleman(i)
 ~~~
 
-2.根据工号查询
+2.Query by work number
 
 ~~~ python
                 elif x == 2:
@@ -431,7 +425,7 @@ elif x == 5:
                         show_saleman(i)
 ~~~
 
-3.根据姓名查询
+3.Query by name
 
 ~~~ python
                 elif x == 3:
@@ -443,9 +437,9 @@ elif x == 5:
                         print("没有这个姓名的业务员！")
 ~~~
 
-四、业务员信息维护
-
-1.批量导入业务员信息
+FOUR.Businessman information maintenance 
+ 
+1. Batch import of salesperson information
 
 ~~~ python
                 if x == 1:
@@ -459,7 +453,7 @@ elif x == 5:
                             continue
 ~~~
 
-2.手工添加业务员信息
+2.Add salesperson information manually
 
 ~~~ python
                 elif x == 2:
@@ -476,7 +470,7 @@ elif x == 5:
                         print("添加成功！")
 ~~~
 
-3.删除业务员的信息
+3.Delete salesperson information
 
 ~~~ python
                 elif x == 3:
@@ -492,7 +486,7 @@ elif x == 5:
                         print("删除成功！")
 ~~~
 
-4.修改业务员的信息
+4.Modify salesperson information
 
 ~~~ python
                 elif x == 4:
@@ -507,9 +501,9 @@ elif x == 5:
                         i[4] = input("请输入修改后的业务员的状态：")
 ~~~
 
-五、销售记录信息查询
-
-1.全部销售记录信息
+FIVE.Sales record information query 
+ 
+1.All sales record information
 
 ~~~ python
                 if x == 1:
@@ -517,7 +511,7 @@ elif x == 5:
                         show_record(i)
 ~~~
 
-2.根据组合查询
+2.Based on combined queries
 
 ~~~ python
                 elif x == 2:
@@ -533,9 +527,9 @@ elif x == 5:
                         print("没有这个日期的销售记录或没有这个业务员的销售记录！")
 ~~~
 
-六、销售记录信息维护
-
-1.批量导入销售记录
+SIX.Sales record information maintenance 
+ 
+1.Batch import sales records
 
 ~~~ python
                 if x == 1:
@@ -544,7 +538,7 @@ elif x == 5:
                     records = np.append(records, f, axis=0)
 ~~~
 
-2.手工添加销售记录
+2.Manually add sales records
 
 ~~~ python
                 elif x == 2:
@@ -588,7 +582,7 @@ elif x == 5:
                         print("添加成功！")
 ~~~
 
-3.删除销售记录
+3.Delete sales records
 
 ~~~ python
                 elif x == 3:
@@ -603,7 +597,7 @@ elif x == 5:
                         print("删除成功！")
 ~~~
 
-4.修改销售记录
+4.Modify sales records
 
 ~~~ python
                 elif x == 4:
@@ -619,9 +613,9 @@ elif x == 5:
                         i[5] = int(input("请输入修改后的销售数量："))
 ~~~
 
-七、销售排名
-
-1.根据销售额对销售员的业绩进行排名
+SEVEN. Sales ranking 
+ 
+1. Rank salesmen 's performance by sales volume
 
 ~~~ python
                 if x == 1:
@@ -637,7 +631,7 @@ elif x == 5:
                     print(order_man)
 ~~~
 
-2.根据销售额对产品进行排名
+2.Rank products according to sales
 
 ~~~ python
                 if x == 2:
@@ -653,7 +647,7 @@ elif x == 5:
                     print(order_product)
 ~~~
 
-八、保存并退出程序
+EIGHT. Save and exit the procedure
 
 ~~~  python
         elif x == 0:
@@ -666,8 +660,5 @@ elif x == 5:
             break
 ~~~
 
-###  调试分析及其测试结果
-
-调试成功
 
 
